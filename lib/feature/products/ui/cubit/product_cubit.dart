@@ -1,0 +1,26 @@
+import 'package:bloc/bloc.dart';
+import 'package:meta/meta.dart';
+import 'package:practice_project/core/network/api_exception.dart';
+import 'package:practice_project/feature/products/data/model/product_model.dart';
+import 'package:practice_project/feature/products/domain/repositories/product_repository.dart';
+
+part 'product_state.dart';
+
+class ProductCubit extends Cubit<ProductState> {
+  ProductCubit({required this.repository}) : super(ProductInitial());
+
+ final ProductRepository repository;
+
+
+ Future<void> getProducts()async{
+  emit(ProductLoading());
+  print('GGG');
+try {
+  final products = await repository.getProducts();
+ emit(ProductSuccess(products));
+} on ApiException catch (e) {
+  emit(ProductError(e.message));
+}
+
+ }
+}
