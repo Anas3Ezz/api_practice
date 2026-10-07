@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:practice_project/core/di/di.dart';
-import 'package:practice_project/feature/products/ui/cubit/product_cubit.dart';
+import 'package:practice_project/features/products/presentation/cubits/product_cubit.dart';
 
-import 'package:practice_project/feature/products/ui/view/home_page.dart';
+import 'package:practice_project/features/products/presentation/pages/home_page.dart';
 
 void main() {
   setUpGetIt();
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: BlocProvider(
-        create: (context) => ProductCubit(repository: getit()),
+        create: (context) => getIt<ProductCubit>(),
         child: const MyHomePage(),
       ),
     );

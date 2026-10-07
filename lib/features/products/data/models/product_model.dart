@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:practice_project/features/products/domain/entities/product.dart';
 
 part 'product_model.g.dart';
 
@@ -12,4 +13,6 @@ class ProductModel {
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
       _$ProductModelFromJson(json);
+
+  Product toDomain() => Product(id: id, title: title, price: price);
 }

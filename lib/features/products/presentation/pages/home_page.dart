@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:practice_project/core/di/di.dart';
-import 'package:practice_project/feature/products/ui/cubit/product_cubit.dart';
-import 'package:practice_project/feature/products/ui/cubit/product_detail_cubit.dart';
-import 'package:practice_project/feature/products/ui/view/product_detail_page.dart';
+import 'package:practice_project/features/products/presentation/cubits/product_cubit.dart';
+import 'package:practice_project/features/products/presentation/cubits/product_detail_cubit.dart';
+import 'package:practice_project/features/products/presentation/pages/product_detail_page.dart';
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -26,7 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: BlocBuilder<ProductCubit, ProductState>(
         builder: (context, state) {
           return switch (state) {
-            ProductInitial() => SizedBox(),
+            ProductInitial() => const SizedBox(),
             ProductSuccess() => ListView.builder(
               itemCount: state.products.length,
               itemBuilder: (context, index) {
@@ -39,9 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 context,
                 MaterialPageRoute(
                   builder: (_) => BlocProvider(
-                    create: (_) => ProductDetailCubit(
-                      repository: getit(),
-                    ),
+                    create: (_) => getIt<ProductDetailCubit>(),
                     child: ProductDetailPage(productId: product.id),
                   ),
                 ),
@@ -50,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         );
               },
               ),
-              ProductLoading() => CircularProgressIndicator(),
+              ProductLoading() => const CircularProgressIndicator(),
               ProductError()=> Text(state.message)
           };
         },

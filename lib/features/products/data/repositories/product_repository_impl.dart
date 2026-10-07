@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:practice_project/core/network/api_exception.dart';
-import 'package:practice_project/feature/products/data/datasources/product_api.dart';
-import 'package:practice_project/feature/products/data/model/product_model.dart';
-import 'package:practice_project/feature/products/domain/repositories/product_repository.dart';
+import 'package:practice_project/features/products/data/datasources/product_api.dart';
+import 'package:practice_project/features/products/domain/entities/product.dart';
+import 'package:practice_project/features/products/domain/repositories/product_repository.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
   final ProductApi productApi;
@@ -10,19 +10,20 @@ class ProductRepositoryImpl implements ProductRepository {
   ProductRepositoryImpl({required this.productApi});
 
   @override
-  Future<List<ProductModel>> getProducts() async {
+  Future<List<Product>> getProducts() async {
     try {
       final response = await productApi.getProducts();
-      return response.products;
+      return response.products.map((m) => m.toDomain()).toList();
     } on DioException catch (e) {
       throw _toApiException(e);
     }
   }
 
   @override
-  Future<ProductModel> getProductById(int id) async {
+  Future<Product> getProductById(int id) async {
     try {
-      return await productApi.getProductById(id);
+      final model = await productApi.getProductById(id);
+      return model.toDomain();
     } on DioException catch (e) {
       throw _toApiException(e);
     }
