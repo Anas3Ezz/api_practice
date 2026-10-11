@@ -15,7 +15,7 @@ class AddTaskSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildHandle(),
+          const _SheetHandle(),
           const SizedBox(height: 20),
           const Text(
             'New Task',
@@ -26,17 +26,22 @@ class AddTaskSheet extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          _buildTextField(hint: 'What do you want to do?'),
+          const _TaskTextField(hint: 'What do you want to do?'),
           const SizedBox(height: 12),
-          _buildTextField(hint: 'Add a note  (optional)'),
+          const _TaskTextField(hint: 'Add a note  (optional)'),
           const SizedBox(height: 24),
-          _buildAddButton(),
+          const _AddButton(),
         ],
       ),
     );
   }
+}
 
-  Widget _buildHandle() {
+class _SheetHandle extends StatelessWidget {
+  const _SheetHandle();
+
+  @override
+  Widget build(BuildContext context) {
     return Center(
       child: Container(
         width: 36,
@@ -48,8 +53,15 @@ class AddTaskSheet extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildTextField({required String hint}) {
+class _TaskTextField extends StatelessWidget {
+  const _TaskTextField({required this.hint});
+
+  final String hint;
+
+  @override
+  Widget build(BuildContext context) {
     return TextField(
       style: const TextStyle(fontSize: 16, color: Color(0xFF2C2C2C)),
       decoration: InputDecoration(
@@ -65,8 +77,13 @@ class AddTaskSheet extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildAddButton() {
+class _AddButton extends StatelessWidget {
+  const _AddButton();
+
+  @override
+  Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       height: 52,
