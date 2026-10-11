@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:practice_project/core/di/di.dart';
-import 'package:practice_project/features/products/presentation/cubits/product_cubit.dart';
-import 'package:practice_project/features/products/presentation/cubits/product_detail_cubit.dart';
-import 'package:practice_project/features/products/presentation/pages/product_detail_page.dart';
+import 'package:practice_project/pr/core/di/di.dart';
+import 'package:practice_project/pr/features/products/presentation/cubits/product_cubit.dart';
+import 'package:practice_project/pr/features/products/presentation/cubits/product_detail_cubit.dart';
+import 'package:practice_project/pr/features/products/presentation/pages/product_detail_page.dart';
 
 
 class MyHomePage extends StatefulWidget {

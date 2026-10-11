@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:practice_project/core/network/error_interceptor.dart';
+import 'package:practice_project/pr/core/network/error_interceptor.dart';
 
 Dio createDio() {
   final dio = Dio(

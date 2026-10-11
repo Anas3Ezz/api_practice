@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:practice_project/core/di/di.dart';
-import 'package:practice_project/features/products/presentation/cubits/product_cubit.dart';
-
-import 'package:practice_project/features/products/presentation/pages/home_page.dart';
+import 'todo/pages/home_page.dart';
 
 void main() {
-  setUpGetIt();
-  runApp(const MyApp());
+  runApp(const TodoApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class TodoApp extends StatelessWidget {
+  const TodoApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: BlocProvider(
-        create: (context) => getIt<ProductCubit>(),
-        child: const MyHomePage(),
+      title: 'My Day',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF4A7C59),
+          brightness: Brightness.light,
+        ),
+        fontFamily: 'SF Pro Display',
+        useMaterial3: true,
       ),
+      home: const TodoHomePage(),
     );
   }
 }
-

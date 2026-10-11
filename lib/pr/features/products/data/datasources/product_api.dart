@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:practice_project/features/products/data/models/product_model.dart';
-import 'package:practice_project/features/products/data/models/products_response.dart';
+import 'package:practice_project/pr/features/products/data/models/product_model.dart';
+import 'package:practice_project/pr/features/products/data/models/products_response.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'product_api.g.dart';

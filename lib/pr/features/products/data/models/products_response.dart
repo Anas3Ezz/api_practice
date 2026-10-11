@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:practice_project/features/products/data/models/product_model.dart';
+import 'package:practice_project/pr/features/products/data/models/product_model.dart';
 
 part 'products_response.g.dart';
 

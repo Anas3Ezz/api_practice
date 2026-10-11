@@ -1,4 +1,4 @@
-import 'package:practice_project/features/products/domain/entities/product.dart';
+import 'package:practice_project/pr/features/products/domain/entities/product.dart';
 
 abstract class ProductRepository {
   Future<List<Product>> getProducts();

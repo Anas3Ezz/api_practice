@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:practice_project/core/network/api_exception.dart';
-import 'package:practice_project/features/products/data/datasources/product_api.dart';
-import 'package:practice_project/features/products/domain/entities/product.dart';
-import 'package:practice_project/features/products/domain/repositories/product_repository.dart';
+import 'package:practice_project/pr/core/network/api_exception.dart';
+import 'package:practice_project/pr/features/products/data/datasources/product_api.dart';
+import 'package:practice_project/pr/features/products/domain/entities/product.dart';
+import 'package:practice_project/pr/features/products/domain/repositories/product_repository.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
   final ProductApi productApi;

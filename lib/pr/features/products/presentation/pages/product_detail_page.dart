@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:practice_project/features/products/presentation/cubits/product_detail_cubit.dart';
+import 'package:practice_project/pr/features/products/presentation/cubits/product_detail_cubit.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key, required this.productId});
