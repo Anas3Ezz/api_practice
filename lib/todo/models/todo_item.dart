@@ -1,9 +1,9 @@
-class TodoItem {
+class TodoModel {
   final String title;
   final String? note;
-  final bool isDone;
+   bool isDone;
 
-  const TodoItem({
+   TodoModel({
     required this.title,
     this.note,
     this.isDone = false,

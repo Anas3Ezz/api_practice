@@ -1,18 +1,8 @@
 import 'package:flutter/material.dart';
-import '../models/todo_item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:practice_project/todo/cubit/todo_cubit.dart';
+import 'package:practice_project/todo/widgets/todo_tile.dart';
 import '../widgets/add_task_sheet.dart';
-import '../widgets/todo_tile.dart';
-
-const _tasks = [
-  TodoItem(title: 'Morning walk', note: '30 minutes'),
-  TodoItem(title: 'Read a chapter', note: 'Atomic Habits'),
-  TodoItem(title: 'Drink 8 glasses of water'),
-];
-
-const _done = [
-  TodoItem(title: 'Stretch for 10 minutes', isDone: true),
-  TodoItem(title: 'Write in journal', isDone: true),
-];
 
 class TodoHomePage extends StatelessWidget {
   const TodoHomePage({super.key});
@@ -31,24 +21,38 @@ class TodoHomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F3EF),
       body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(child: _buildHeader()),
-            _buildSectionLabel('Tasks'),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (_, i) => TodoTile(item: _tasks[i]),
-                childCount: _tasks.length,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const _Header(),
+            Expanded(
+              child: BlocBuilder<TodoCubit, TodoState>(
+                builder: (context, state) {
+                  if (state is! TodoSucess || state.todos.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        'No tasks yet',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Color(0xFF9A9A9A),
+                        ),
+                      ),
+                    );
+                  }
+
+                  final todos = state.todos;
+                  return ListView.builder(
+                    padding: const EdgeInsets.only(bottom: 100),
+                    itemCount: todos.length,
+                    itemBuilder: (_, i) =>TodoTile(
+                      item: todos[i],
+  onTap: () => context.read<TodoCubit>().toogleStatus(i),
+                     
+                      )
+                  );
+                },
               ),
             ),
-            _buildSectionLabel('Completed'),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (_, i) => TodoTile(item: _done[i]),
-                childCount: _done.length,
-              ),
-            ),
-            const SliverToBoxAdapter(child: SizedBox(height: 100)),
           ],
         ),
       ),
@@ -62,8 +66,13 @@ class TodoHomePage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildHeader() {
+class _Header extends StatelessWidget {
+  const _Header();
+
+  @override
+  Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.fromLTRB(24, 32, 24, 8),
       child: Column(
@@ -87,23 +96,6 @@ class TodoHomePage extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  SliverToBoxAdapter _buildSectionLabel(String label) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(24, 20, 24, 8),
-        child: Text(
-          label,
-          style: const TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFFAAAAAA),
-            letterSpacing: 1.2,
-          ),
-        ),
       ),
     );
   }

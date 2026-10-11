@@ -1,7 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:practice_project/todo/cubit/todo_cubit.dart';
+import 'package:practice_project/todo/models/todo_item.dart';
 
-class AddTaskSheet extends StatelessWidget {
-  const AddTaskSheet({super.key});
+class AddTaskSheet extends StatefulWidget {
+ const  AddTaskSheet({super.key});
+
+  @override
+  State<AddTaskSheet> createState() => _AddTaskSheetState();
+}
+
+class _AddTaskSheetState extends State<AddTaskSheet> {
+  final TextEditingController title = TextEditingController();
+
+  final _note = TextEditingController();
+
+  @override
+  void dispose() {
+    title.dispose();
+    _note.dispose();
+    super.dispose();
+  }
+
+  void submite (){
+    if (title.text.trim().isEmpty) return;
+    context.read<TodoCubit>().addTodo(title.text.trim(), _note.text.trim());
+        Navigator.pop(context);
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +52,13 @@ class AddTaskSheet extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          const _TaskTextField(hint: 'What do you want to do?'),
+          _TaskTextField(hint: 'What do you want to do?', controller: title),
           const SizedBox(height: 12),
-          const _TaskTextField(hint: 'Add a note  (optional)'),
+          _TaskTextField(hint: 'Add a note  (optional)', controller: _note),
           const SizedBox(height: 24),
-          const _AddButton(),
+           _AddButton(onPressed: (){
+            submite();
+           }),
         ],
       ),
     );
@@ -56,13 +84,15 @@ class _SheetHandle extends StatelessWidget {
 }
 
 class _TaskTextField extends StatelessWidget {
-  const _TaskTextField({required this.hint});
+  const _TaskTextField({required this.hint, required this.controller});
 
   final String hint;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       style: const TextStyle(fontSize: 16, color: Color(0xFF2C2C2C)),
       decoration: InputDecoration(
         hintText: hint,
@@ -80,7 +110,8 @@ class _TaskTextField extends StatelessWidget {
 }
 
 class _AddButton extends StatelessWidget {
-  const _AddButton();
+  const _AddButton({required this.onPressed});
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +119,7 @@ class _AddButton extends StatelessWidget {
       width: double.infinity,
       height: 52,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF4A7C59),
           foregroundColor: Colors.white,

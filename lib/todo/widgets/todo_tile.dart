@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import '../models/todo_item.dart';
+import 'package:practice_project/todo/models/todo_item.dart';
 
 class TodoTile extends StatelessWidget {
-  final TodoItem item;
+  final TodoModel item;
+  final void Function() onTap;
 
-  const TodoTile({super.key, required this.item});
+  const TodoTile({super.key, required this.item, required this.onTap});
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,36 +29,51 @@ class TodoTile extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           child: Row(
+        
             children: [
-              _buildCheckbox(),
-              const SizedBox(width: 14),
-              Expanded(child: _buildContent()),
+              GestureDetector(
+                onTap: onTap,
+                child: _TodoCheckbox(isDone: item.isDone,)),
+                SizedBox(width: 20,),
+              Expanded(child: _TodoContent(item: item)),
             ],
           ),
         ),
       ),
     );
   }
+}
 
-  Widget _buildCheckbox() {
+class _TodoCheckbox extends StatelessWidget {
+  const _TodoCheckbox({required this.isDone,});
+
+  final bool isDone;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       width: 24,
       height: 24,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: item.isDone ? const Color(0xFF4A7C59) : Colors.transparent,
+        color: isDone ? const Color(0xFF4A7C59) : Colors.transparent,
         border: Border.all(
-          color: item.isDone ? const Color(0xFF4A7C59) : const Color(0xFFCCCCCC),
+          color: isDone ? const Color(0xFF4A7C59) : const Color(0xFFCCCCCC),
           width: 2,
         ),
       ),
-      child: item.isDone
-          ? const Icon(Icons.check, size: 14, color: Colors.white)
-          : null,
+      child: isDone ? const Icon(Icons.check, size: 14, color: Colors.white) : null,
     );
   }
+}
 
-  Widget _buildContent() {
+class _TodoContent extends StatelessWidget {
+  const _TodoContent({required this.item});
+
+  final TodoModel item;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
