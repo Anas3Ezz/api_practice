@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'todo/pages/home_page.dart';
+import 'package:practice_project/features/products_screen/ui/home_screen.dart';
+
 
 void main() {
   runApp(const TodoApp());
@@ -21,7 +22,7 @@ class TodoApp extends StatelessWidget {
         fontFamily: 'SF Pro Display',
         useMaterial3: true,
       ),
-      home: const TodoHomePage(),
+      home: HomeScreen() ,
     );
   }
 }
