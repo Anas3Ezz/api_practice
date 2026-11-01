@@ -1,25 +1,27 @@
 class ProductModel {
-  final int id;
   final String title;
   final String description;
+  final String category;
   final double price;
   final String thumbnail;
 
-  ProductModel({
-    required this.id,
+  const ProductModel({
     required this.title,
     required this.description,
-    required this.price,
-    required this.thumbnail,
+    required this.category,
+    required this.price, required this.thumbnail,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-      id: json['id'],
       title: json['title'],
       description: json['description'],
+      category: json['category'],
       price: (json['price'] as num).toDouble(),
-      thumbnail: json['thumbnail'],
+       thumbnail: json['thumbnail'],
+
     );
   }
+
+
 }

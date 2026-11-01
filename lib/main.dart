@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:practice_project/core/network/dio_helper.dart';
-import 'package:practice_project/features/products_screen/cubit/products_cubit.dart';
-import 'package:practice_project/features/products_screen/data/repo/product_repo.dart';
-import 'package:practice_project/features/products_screen/ui/products_screen.dart';
+import 'package:practice_project/core/networking/dio_helper.dart';
+import 'package:practice_project/features/cubit/products_cubit.dart';
+import 'package:practice_project/features/data/repo/product_repo.dart';
+import 'package:practice_project/features/ui/products_screen.dart';
 
 void main() {
   DioHelper.init();
@@ -17,7 +17,6 @@ class TodoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My Day',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -28,7 +27,7 @@ class TodoApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: BlocProvider(
-        create: (context) => ProductsCubit(ProductRepo())..getProducts(),
+        create: (context) => ProductsCubit(ProductRepo())..getProduct(),
         child: ProductsScreen(),
       ),
     );
